@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="convite">
+  <header class="hero">
+    <p class="eyebrow">{{ evento.instituicao }} · {{ evento.turma }}</p>
+    <h1>{{ evento.formando }}</h1>
+    <p class="curso">{{ evento.curso }}</p>
+    <div class="divisor" aria-hidden="true">✦</div>
+    <p class="mensagem">{{ evento.mensagem }}</p>
+  </header>
+
+  <section class="contagem" data-alvo="{{ evento.data_iso }}" aria-label="Contagem regressiva">
+    <div><span data-u="dias">--</span><small>dias</small></div>
+    <div><span data-u="horas">--</span><small>horas</small></div>
+    <div><span data-u="min">--</span><small>min</small></div>
+    <div><span data-u="seg">--</span><small>seg</small></div>
+  </section>
+
+  <section class="detalhes">
+    <article>
+      <h2>Quando</h2>
+      <p>{{ evento.data_extenso }}</p>
+      <p>às {{ evento.horario }}</p>
+    </article>
+    <article>
+      <h2>Onde</h2>
+      <p>{{ evento.local_nome }}</p>
+      <p class="muted">{{ evento.local_endereco }}</p>
+      <a class="link" href="{{ evento.maps_url }}" target="_blank" rel="noopener">Ver no mapa →</a>
+    </article>
+    <article>
+      <h2>Traje</h2>
+      <p>{{ evento.traje }}</p>
+    </article>
+  </section>
+
+  <section class="acoes">
+    <a class="btn" href="https://wa.me/{{ evento.contato_whatsapp }}?text={{ ('Olá! Confirmo presença na formatura de ' ~ evento.formando) | urlencode }}" target="_blank" rel="noopener">
+      Confirmar presença
+    </a>
+  </section>
+
+  <footer>Com carinho, {{ evento.formando }}</footer>
+</main>
+{% endblock %}
