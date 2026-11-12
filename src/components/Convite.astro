@@ -1,0 +1,27 @@
+---
+import { evento } from "../data/evento";
+const palavras = evento.convite.split(" ");
+---
+<section class="convite" id="convite">
+  <p class="eyebrow" data-revela>Querido(a) convidado(a)</p>
+  <p class="convite__texto" data-palavras>
+    {palavras.map((p) => <span class="palavra">{p} </span>)}
+  </p>
+  <p class="script convite__assinatura" data-revela>{evento.primeiroNome}</p>
+</section>
+
+<style>
+  .convite {
+    background: var(--creme); color: var(--tinta);
+    padding: clamp(6rem, 18vh, 10rem) var(--gutter);
+    text-align: center;
+  }
+  .eyebrow { color: var(--magenta); }
+  .convite__texto {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(1.9rem, 5.2vw, 3.4rem);
+    line-height: 1.2; max-width: 22ch; margin: 1.5rem auto 0;
+    text-wrap: balance;
+  }
+  .convite__assinatura { font-size: clamp(2.5rem, 7vw, 3.5rem); color: var(--vinho); margin-top: 2rem; }
+</style>

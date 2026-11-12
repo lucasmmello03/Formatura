@@ -1,0 +1,13 @@
+---
+import { evento } from "../data/evento";
+---
+<footer class="rodape">
+  <p class="script">Com carinho,</p>
+  <p class="rodape__nome">{evento.primeiroNome}</p>
+</footer>
+
+<style>
+  .rodape { background: var(--noite); text-align: center; padding: 4rem var(--gutter) 3rem; }
+  .script { font-size: 2rem; color: var(--rosa); }
+  .rodape__nome { font-family: var(--serif); font-size: 1.6rem; letter-spacing: .08em; }
+</style>

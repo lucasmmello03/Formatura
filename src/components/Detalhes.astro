@@ -1,0 +1,53 @@
+---
+import { evento } from "../data/evento";
+const ac = "A confirmar";
+const itens = [
+  { rotulo: "Data", valor: evento.dataExtenso || ac },
+  { rotulo: "Horário", valor: evento.horario || ac },
+  { rotulo: "Local", valor: evento.local || ac, extra: evento.endereco, mapa: evento.mapsUrl },
+  { rotulo: "Traje", valor: evento.traje || ac },
+];
+---
+<section class="detalhes">
+  <p class="eyebrow" data-revela>O grande dia</p>
+  <h2 data-revela>Detalhes do evento</h2>
+  <dl class="detalhes__grade">
+    {itens.map((it) => (
+      <div class="detalhes__item" data-revela>
+        <dt>{it.rotulo}</dt>
+        <dd class:list={[{ pendente: it.valor === ac }]}>{it.valor}</dd>
+        {it.extra && <dd class="detalhes__extra">{it.extra}</dd>}
+        {it.mapa && (
+          <dd><a href={it.mapa} target="_blank" rel="noopener">Abrir no mapa →</a></dd>
+        )}
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .detalhes {
+    background: var(--creme); color: var(--tinta);
+    padding: clamp(5rem, 14vh, 8rem) var(--gutter);
+    text-align: center;
+  }
+  .eyebrow { color: var(--magenta); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.2rem, 6vw, 3.5rem); line-height: 1.1; margin-top: .5rem; }
+  .detalhes__grade {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    gap: 1rem; max-width: 1000px; margin: 3rem auto 0; text-align: left;
+  }
+  .detalhes__item {
+    background: #fff; border-radius: var(--raio); padding: 1.5rem;
+    border-top: 4px solid var(--rosa);
+    box-shadow: 0 12px 30px -18px rgba(142,27,63,.35);
+  }
+  .detalhes__item:nth-child(2) { border-top-color: var(--coral); }
+  .detalhes__item:nth-child(3) { border-top-color: var(--magenta); }
+  .detalhes__item:nth-child(4) { border-top-color: var(--verde); }
+  dt { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; color: var(--vinho); }
+  dd { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; line-height: 1.25; margin-top: .35rem; }
+  dd.pendente { color: #9b8189; font-style: italic; font-weight: 500; }
+  .detalhes__extra { font-family: var(--sans); font-size: .95rem; font-weight: 400; color: #6b5058; }
+  dd a { font-family: var(--sans); font-size: .95rem; font-weight: 600; color: var(--magenta); text-decoration: none; }
+</style>

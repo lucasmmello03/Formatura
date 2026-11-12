@@ -1,0 +1,22 @@
+/* Paleta — inspirada nas buganvílias */
+:root {
+  --magenta: #b70d6b;
+  --rosa: #e83e8c;
+  --coral: #f5653a;
+  --vinho: #8e1b3f;
+  --verde: #1e4a2f;
+
+  /* Neutros derivados da paleta */
+  --noite: #1a0a11;      /* fundo escuro, puxado para o vinho (combina com o fundo das fotos) */
+  --creme: #f8f2ee;      /* fundo claro */
+  --tinta: #2b1019;      /* texto sobre fundo claro */
+  --texto-claro: #f8f2ee;
+  --texto-suave: #c9b3bb;
+
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --script: "Pinyon Script", cursive;
+  --sans: "Manrope Variable", system-ui, sans-serif;
+
+  --gutter: clamp(1rem, 5vw, 4rem);
+  --raio: 18px;
+}

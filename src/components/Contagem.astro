@@ -1,0 +1,43 @@
+---
+import { evento } from "../data/evento";
+---
+<section class="contagem">
+  <p class="eyebrow" data-revela>Contagem regressiva</p>
+  {evento.dataIso ? (
+    <div class="contagem__grade" data-contagem={evento.dataIso} data-revela>
+      <div><span data-u="dias">--</span><small>dias</small></div>
+      <div><span data-u="horas">--</span><small>horas</small></div>
+      <div><span data-u="min">--</span><small>minutos</small></div>
+      <div><span data-u="seg">--</span><small>segundos</small></div>
+    </div>
+  ) : (
+    <p class="contagem__breve" data-revela>A data será anunciada em breve.</p>
+  )}
+</section>
+
+<style>
+  .contagem {
+    background: var(--verde); color: var(--creme);
+    padding: clamp(5rem, 14vh, 8rem) var(--gutter);
+    text-align: center;
+  }
+  .eyebrow { color: #f3b8cf; }
+  .contagem__grade {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.5rem, 2vw, 1.5rem);
+    max-width: 760px; margin: 2rem auto 0;
+  }
+  .contagem__grade div {
+    border: 1px solid rgba(248,242,238,.2); border-radius: var(--raio);
+    padding: 1.25rem .25rem;
+  }
+  .contagem__grade span {
+    display: block; font-family: var(--serif); font-weight: 500;
+    font-size: clamp(2.2rem, 8vw, 4rem); line-height: 1;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .contagem__grade small {
+    display: block; margin-top: .5rem;
+    font-size: clamp(.6rem, 2.4vw, .75rem); letter-spacing: .14em; text-transform: uppercase; opacity: .75;
+  }
+  .contagem__breve { font-family: var(--serif); font-size: clamp(1.8rem, 5vw, 2.6rem); margin-top: 1rem; }
+</style>

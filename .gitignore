@@ -1,6 +1,7 @@
-__pycache__/
-*.pyc
-.venv/
-instance/
-*.db
+node_modules/
+dist/
+.astro/
+.vercel/
 .env
+.DS_Store
+formatura.zip
