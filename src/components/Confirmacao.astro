@@ -8,9 +8,13 @@ const icone = `<svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22
   <h2 data-revela>Posso contar <em>com você?</em></h2>
   <p class="rsvp__prazo" data-revela>Confirme até <strong>{evento.confirmarAte}</strong> pelo WhatsApp.</p>
 
-  <form class="rsvp__form" data-rsvp data-revela>
-    <label for="nome">Seu nome</label>
-    <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Ex.: Maria Silva" maxlength="80" />
+  <form class="rsvp__form" data-rsvp data-revela novalidate>
+    <label for="nome">Seu nome <span class="rsvp__obrig" aria-hidden="true">*</span></label>
+    <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Ex.: Maria Silva"
+           maxlength="80" required aria-describedby="nome-erro" />
+    <p class="rsvp__erro" id="nome-erro" role="alert" hidden>
+      Por favor, escreva seu nome para a {principal.nome} saber quem está confirmando.
+    </p>
     <p class="rsvp__previa" aria-live="polite">
       <span>Mensagem:</span> <q data-rsvp-previa>{mensagemWhatsApp()}</q>
     </p>
@@ -39,17 +43,45 @@ const icone = `<svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22
     const previa = form.querySelector<HTMLElement>("[data-rsvp-previa]")!;
     const links = form.querySelectorAll<HTMLAnchorElement>("[data-rsvp-link]");
 
+    const erro = form.querySelector<HTMLElement>("#nome-erro")!;
+
     const atualizar = () => {
       previa.textContent = mensagemWhatsApp(input.value);
       links.forEach((a) => (a.href = linkWhatsApp(a.dataset.rsvpLink!, input.value)));
     };
+
+    // Nome é obrigatório: pelo menos 2 letras, sem contar espaços
+    const nomeValido = () => input.value.trim().length >= 2;
+
+    const mostrarErro = (mostrar: boolean) => {
+      erro.hidden = !mostrar;
+      input.setAttribute("aria-invalid", String(mostrar));
+      form.classList.toggle("rsvp__form--erro", mostrar);
+    };
+
+    // Bloqueia a ida ao WhatsApp enquanto o nome não for preenchido
+    links.forEach((a) =>
+      a.addEventListener("click", (e) => {
+        if (nomeValido()) return;
+        e.preventDefault();
+        mostrarErro(true);
+        input.focus();
+        // reinicia a animação de "balançar"
+        input.classList.remove("tremer");
+        void input.offsetWidth;
+        input.classList.add("tremer");
+      }),
+    );
 
     // Link personalizado: ?c=Maria ou ?nome=Maria já preenche o nome
     const params = new URLSearchParams(location.search);
     const doLink = params.get("c") ?? params.get("nome");
     if (doLink) input.value = doLink.slice(0, 80);
 
-    input.addEventListener("input", atualizar);
+    input.addEventListener("input", () => {
+      atualizar();
+      if (nomeValido()) mostrarErro(false);
+    });
     form.addEventListener("submit", (e) => { e.preventDefault(); links[0].click(); });
     atualizar();
   }
@@ -83,6 +115,20 @@ const icone = `<svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22
     background: var(--creme); border: 2px solid transparent; border-radius: 12px;
   }
   input:focus { outline: none; border-color: var(--coral); }
+  input[aria-invalid="true"] { border-color: #ffd23f; background: #fff7f2; }
+  .rsvp__obrig { color: #ffd4c4; }
+  .rsvp__erro {
+    display: flex; gap: .5rem; align-items: flex-start;
+    margin-top: .6rem; padding: .6rem .8rem; border-radius: 10px;
+    background: rgba(255,210,63,.16); border: 1px solid rgba(255,210,63,.55);
+    color: #fff3c4; font-size: .9rem; font-weight: 600; line-height: 1.4;
+  }
+  .rsvp__erro::before { content: "!"; flex: none; display: grid; place-items: center;
+    width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #ffd23f; color: var(--vinho); font-weight: 800; font-size: .8rem; }
+  .rsvp__form--erro .rsvp__botao { opacity: .6; }
+  .tremer { animation: tremer .4s; }
+  @keyframes tremer { 20%, 60% { transform: translateX(-6px) } 40%, 80% { transform: translateX(6px) } }
+  @media (prefers-reduced-motion: reduce) { .tremer { animation: none; } }
   .rsvp__previa { font-size: .9rem; margin-top: 1rem; opacity: .9; }
   .rsvp__previa span { font-weight: 700; }
   .rsvp__botao {
