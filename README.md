@@ -18,15 +18,15 @@ Acesse http://localhost:4321
 
 | O quê | Arquivo |
 |---|---|
-| Nome, data, local, traje, WhatsApp, texto do convite | `src/data/evento.ts` |
+| Nome, data, local, contatos de WhatsApp, prazo, texto do convite | `src/data/evento.ts` |
 | Paleta de cores e fontes | `src/styles/tema.css` |
 | Fotos | `src/assets/fotos/` (otimizadas automaticamente no build) |
 | Fotos e legendas da trajetória | `src/components/Trajetoria.astro` |
 | Animações de rolagem (GSAP + Lenis) | `src/scripts/rolagem.ts` |
 | Imagem de prévia do link (WhatsApp) | `public/og.jpg` (1200×630) |
 
-Campos vazios em `evento.ts` aparecem como "A confirmar". Sem `dataIso`, a contagem
-regressiva mostra "A data será anunciada em breve".
+A contagem regressiva, o selo "Faltam X dias", o lembrete de agenda (`/formatura.ics` e
+Google Agenda) e o mapa usam os dados de `evento.ts`.
 
 ## Link personalizado
 
@@ -45,9 +45,10 @@ src/
   data/evento.ts         dados do convite
   assets/fotos/          fotos originais
   styles/                tema (paleta) e estilos globais
-  components/            Hero, Convite, Trajetoria, Contagem, Detalhes, Confirmacao, Rodape
+  components/            Hero, Convite, Contagem, Trajetoria, Local, Confirmacao, Rodape
   layouts/Base.astro     <head>, metadados de compartilhamento, fontes
   pages/index.astro      monta a página
+  pages/formatura.ics.ts arquivo de agenda gerado no build
   scripts/               rolagem interativa e contagem regressiva
 public/                  og.jpg, favicon
 ```

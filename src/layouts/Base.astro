@@ -8,9 +8,7 @@ import "../styles/global.css";
 import { evento } from "../data/evento";
 
 const titulo = `Formatura de ${evento.primeiroNome} · ${evento.curso}`;
-const descricao = evento.dataExtenso
-  ? `${evento.dataExtenso}${evento.local ? ` · ${evento.local}` : ""}. Confirme sua presença!`
-  : `Você está convidado(a) para a formatura de ${evento.formanda} em ${evento.curso}.`;
+const descricao = `${evento.diaSemana}, ${evento.dataExtenso}, às ${evento.horario} · ${evento.local.nome} (${evento.local.bairro}). Confirme sua presença até ${evento.confirmarAte}!`;
 const og = new URL("/og.jpg", Astro.site).href;
 ---
 <!doctype html>

@@ -16,11 +16,14 @@ import { evento } from "../data/evento";
   </div>
 
   <div class="hero__texto" data-hero-texto>
-    <p class="eyebrow hero__linha">Convite de formatura</p>
-    <p class="script hero__script hero__linha">Formatura</p>
+    <p class="script hero__script hero__linha">Minha Formatura</p>
     <h1 class="hero__nome hero__linha">{evento.formanda}</h1>
     <p class="hero__curso hero__linha">{evento.titulo}</p>
-    {evento.dataExtenso && <p class="hero__data hero__linha">{evento.dataExtenso}</p>}
+    <p class="hero__data hero__linha">
+      <time datetime={evento.dataIso}>{evento.dataCurta}</time>
+      <span aria-hidden="true">·</span> {evento.horario}
+    </p>
+    <p class="hero__faltam hero__linha" data-faltam hidden></p>
   </div>
 
   <a href="#convite" class="hero__seta" aria-label="Rolar para o convite">
@@ -37,9 +40,7 @@ import { evento } from "../data/evento";
     overflow: hidden;
     background: var(--noite);
   }
-  .hero__foto {
-    position: absolute; inset: 0;
-  }
+  .hero__foto { position: absolute; inset: 0; }
   .hero__foto :global(img) {
     width: 100%; height: 100%;
     object-fit: cover; object-position: 50% 20%;
@@ -47,32 +48,42 @@ import { evento } from "../data/evento";
   }
   .hero__foto::after {
     content: ""; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(26,10,17,0) 35%, rgba(26,10,17,.75) 65%, var(--noite) 100%);
+    background: linear-gradient(to bottom, rgba(26,10,17,0) 28%, rgba(26,10,17,.82) 56%, var(--noite) 100%);
   }
   .hero__texto {
     position: relative;
-    padding: 0 var(--gutter) 6.5rem;
+    padding: 0 var(--gutter) 6rem;
     text-align: center;
   }
-  .eyebrow { color: var(--rosa); }
   .hero__script {
-    font-size: clamp(3rem, 12vw, 5.5rem);
-    line-height: 1; color: var(--rosa);
-    margin: .5rem 0 -.25rem;
+    font-size: clamp(2.6rem, 11vw, 5rem);
+    line-height: 1.25; color: var(--rosa);
+    margin-bottom: .1rem;
   }
   .hero__nome {
     font-family: var(--serif); font-weight: 500;
-    font-size: clamp(2.4rem, 8vw, 4.75rem);
+    font-size: clamp(2.3rem, 8vw, 4.75rem);
     line-height: 1.05; letter-spacing: -.01em;
   }
   .hero__curso {
-    font-family: var(--serif); font-style: italic; font-size: clamp(1.25rem, 3.5vw, 1.6rem);
-    color: var(--texto-suave); margin-top: .5rem;
+    font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+    color: var(--texto-suave); margin-top: .4rem;
   }
-  .hero__data { margin-top: 1rem; font-weight: 600; letter-spacing: .04em; }
+  .hero__data {
+    margin-top: 1rem; font-weight: 700; letter-spacing: .12em; font-size: .95rem;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .hero__data span { color: var(--rosa); margin: 0 .35rem; }
+  .hero__faltam {
+    display: inline-block; margin-top: .9rem;
+    padding: .4rem .95rem; border-radius: 999px;
+    background: rgba(232,62,140,.16); border: 1px solid rgba(232,62,140,.5);
+    color: #ffd0e3; font-size: .85rem; font-weight: 600; letter-spacing: .02em;
+  }
+  .hero__faltam[hidden] { display: none; }
 
   .hero__seta {
-    position: absolute; bottom: 1.75rem; left: 50%; translate: -50% 0;
+    position: absolute; bottom: 1.5rem; left: 50%; translate: -50% 0;
     width: 26px; height: 42px; border: 1.5px solid var(--texto-suave); border-radius: 20px;
   }
   .hero__seta span {
@@ -81,7 +92,6 @@ import { evento } from "../data/evento";
   }
   @keyframes rola { 0% { opacity: 0; transform: translateY(0) } 30% { opacity: 1 } 100% { opacity: 0; transform: translateY(14px) } }
 
-  /* Desktop: foto à direita, texto à esquerda */
   @media (min-width: 900px) {
     .hero { grid-template-columns: 1fr 1fr; align-items: center; }
     .hero__foto { left: auto; width: 50%; }
