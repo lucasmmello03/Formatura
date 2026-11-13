@@ -41,7 +41,9 @@ export function mensagemWhatsApp(nome = "") {
 }
 
 export function linkWhatsApp(numero: string, nome = "") {
-  return `https://wa.me/${numero}?text=${encodeURIComponent(mensagemWhatsApp(nome))}`;
+  // api.whatsapp.com em vez de wa.me: o redirecionamento do wa.me corrompe emojis
+  // em alguns Androids (aparecem como "�").
+  return `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensagemWhatsApp(nome))}`;
 }
 
 const q = encodeURIComponent(evento.local.busca);

@@ -3,6 +3,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { -webkit-text-size-adjust: 100%; }
+html:not(.lenis) { scroll-behavior: smooth; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
@@ -29,8 +30,12 @@ a { color: inherit; }
 }
 
 /* Elementos com animação de entrada: só ficam ocultos quando o JS de animação está ativo */
-.anim [data-revela] { opacity: 0; transform: translateY(32px); }
+.anim [data-revela] {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.anim [data-revela].visivel { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .anim [data-revela] { opacity: 1; transform: none; }
+  .anim [data-revela] { opacity: 1; transform: none; transition: none; }
 }
