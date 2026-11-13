@@ -17,6 +17,8 @@ const og = new URL("/og.jpg", Astro.site).href;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#1a0a11" />
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>{titulo}</title>
     <meta name="description" content={descricao} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

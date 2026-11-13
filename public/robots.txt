@@ -1,0 +1,5 @@
+# Convite pessoal: não deve aparecer em buscadores.
+# A proibição de indexar é feita pelo cabeçalho X-Robots-Tag e pela meta tag "robots",
+# por isso o rastreamento não é bloqueado aqui (senão o buscador não veria o noindex).
+User-agent: *
+Allow: /
