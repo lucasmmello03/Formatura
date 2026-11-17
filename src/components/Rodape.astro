@@ -4,10 +4,21 @@ import { evento } from "../data/evento";
 <footer class="rodape">
   <p class="script">Com amor,</p>
   <p class="rodape__nome">{evento.assinatura}</p>
+
+  <p class="rodape__credito">
+    Desenvolvido por <strong>Lucas Melo De Mello</strong>
+  </p>
 </footer>
 
 <style>
-  .rodape { background: var(--noite); text-align: center; padding: 4rem var(--gutter) 3rem; }
+  .rodape { background: var(--noite); text-align: center; padding: 4rem var(--gutter) 2rem; }
   .script { font-size: 2.2rem; color: var(--rosa); }
   .rodape__nome { font-family: var(--serif); font-size: 1.6rem; letter-spacing: .08em; }
+
+  .rodape__credito {
+    margin: 3rem auto 0; padding-top: 1.5rem; max-width: 420px;
+    border-top: 1px solid rgba(248,242,238,.12);
+    font-size: .8rem; letter-spacing: .04em; color: var(--texto-suave);
+  }
+  .rodape__credito strong { font-weight: 600; color: var(--creme); }
 </style>
